@@ -1,0 +1,90 @@
+\documentclass{extarticle}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[headheight=33pt,margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[table]{xcolor} % [table] allows cell filling with color
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{tabularx} % To create a table/array
+\usepackage{multirow} % Allows row modifications like merging
+\usepackage{makecell} % Allows cell modifications
+\usepackage{hyperref}
+\usepackage{listings}
+% Mofify default parameters for the arrays
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{20pt}
+\setlength{\arrayrulewidth}{1mm}
+
+\definecolor{lightcoral}{rgb}{0.94, 0.5, 0.5} % For deadlines
+\definecolor{lightgray}{rgb}{0.83, 0.83, 0.83} % For empty cells
+
+% https://en.wikibooks.org/wiki/LaTeX/Title_Creation
+% Le TB fait l’objet d’un cahier des charges fixant au minimum :
+%   - les objectifs;
+%   - le déroulement global du travail, ses principales étapes;
+%   - les résultats attendus et délivrables.
+
+\pagestyle{fancy}
+\rhead{Département TIC - Télécommunications}
+ \lhead{\includegraphics[scale=0.4]{images/HEIG-VD_Logo_83x25_RVB_ROUGE.png}} % HEIG logo in header
+\lfoot{Projet SEN: Spear Phishing}
+\cfoot{\thepage}
+\rfoot{Jérôme Bagnoud et Florian Polier}
+\renewcommand{\footrulewidth}{0.4pt} % default is 0pt, place a line above footer
+
+\setenumerate{label=$\bullet$} % Change the default label for enumerate
+
+\begin{document}
+    
+    \begin{titlepage}
+        \begin{center}
+
+            \begin{figure}[H]
+                \includegraphics[scale=0.7]{images/HEIG-VD_Logo96x29_RVB_ROUGE.png}
+            \end{figure}
+            \vspace{2cm}
+            \Huge
+            \textbf{Projet SEN: Spear Phishing}
+
+            \vspace{0.4cm}
+            \LARGE
+            Rapport
+
+            \rule{0.7\textwidth}{.5pt}
+
+            \vspace{0.4cm}
+            \Huge
+            Attaque fictionnelle sur Alexandre Astier
+
+            \vspace{0.5cm}
+            \large
+            Printemps 2020
+
+            \vspace{6cm}
+
+            \Large
+            \begin{tabular}{r l}
+                \textbf{Étudiants :} & Jérôme Bagnoud \& Florian Polier\\
+                \textbf{Professeur :} & Abraham Rubinstein \\
+                \textbf{Assistant :} & Yann Lederrey \\
+            \end{tabular}
+            
+        \end{center}
+    \end{titlepage}
+
+    %% \input{file.tex} allows you to insert a .tex file in your documents
+
+    \input{section/outils.tex}
+
+    \input{section/osint.tex}
+
+    \input{section/scenario.tex}
+
+    \input{section/simulation.tex}
+
+
+    
+\end{document}

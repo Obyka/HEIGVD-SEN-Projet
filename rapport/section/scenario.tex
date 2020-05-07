@@ -1,0 +1,33 @@
+\section{Scénario d'attaque}
+
+\subsection{Objectif de l'attaque}
+\paragraph{} En tant qu'attaquant, nous sommes intéressé par notre cible (Alexandre Astier) pour plusieurs raisons:
+\begin{enumerate}
+    \item Récupérer ses informations personnelles (revente)
+    \item Vecteur pour des attaques sur d'autres célébrités
+    \item Curiosité de son travail
+\end{enumerate}
+
+Notre attaque nous permettra d'obtenir un accès à l'ordinateur personnel de M. Astier, ou à celui de son agente Mme. Juanita Fellag.
+Il est hautement problème que cet accès nous permettra de remplir nos objectifs.
+
+Si nous arrivons effectivement à infecter le PC de l'agente de M. Astier, 
+nous aurons aussi certainement accès à tous les autres clients\footnote{\url{http://www.agencesartistiques.com/Fiche-Agent/1840-juanita-fellag.html}} de l'agence, puisque Mme Juanita Fellag en est la directrice\footnote{\url{https://www.societe.com/societe/film-talents-453963548.html}}.
+
+\subsection{Support de l'attaque}
+
+Comme support de l'attaque, nous avons choisi \textbf{le courrier des lecteurs\footnote{\url{https://artistes-productions.com/2019/08/07/contacter-alexandre-astier-ecrire-a-alexandre-astier/}}}.
+Nous pensons que notre support est le plus adapté car c'est ce qui aura le plus de chance d'atteindre la cible.
+Astier reçoit des milliers de messages sur les réseaux sociaux, ce qui implique une faible chance de succès.
+Par contre, il reçoit beaucoup moins de lettres, et les traite en grande majorité.
+
+De plus, cela nous permettra de profiter du format (hardware) pour utiliser un payload original. Nous utiliserons une \textbf{Teensy}, présentée plus tôt, que nous chargerons avec un payload et que nous lui enverrons
+
+Afin de l'inciter (M. Astier ou son agente) à connecter la clé malveillante, nous utiliserons le \textbf{film Kaamelott en post-production} comme prétexte. 
+Nous avons écrit le scénario suivant: Nous enverrons une lettre accompagnant la clé affirmant que le film a été \textbf{leaké}, et que la preuve est sur la clé ainsi que les instructions pour empêcher sa mise en ligne.
+
+Au vu de l'importance de ce film pour M. Astier (il travaille sur l'oeuvre Kaamelott depuis 2004), nous espérons que la peur lui ferait oublier la prudence quelques instants, afin de lui faire connecter la clé qui contient le payload.
+\subsection{Payload de l'attaque}
+
+La limite entre le payload et le support est, dans notre cas, assez floue. Nous avons donc expliqué la majeure partie de la procédure.
+Le payload logiciel présent sur la clé nous ouvrira un shell \textbf{meterpreter} en reverse TCP. Ainsi, nous aurons le contrôle complet de sa machine, et accès à toutes les ressources qu'elle contient. (Notamment le potentiel film.)
