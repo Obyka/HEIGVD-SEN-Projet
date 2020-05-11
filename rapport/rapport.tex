@@ -13,6 +13,16 @@
 \usepackage{makecell} % Allows cell modifications
 \usepackage{hyperref}
 \usepackage{listings}
+
+% Great listing style, source: https://tex.stackexchange.com/questions/116534/lstlisting-line-wrapping
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
 % Mofify default parameters for the arrays
 \renewcommand{\arraystretch}{2}
 \setlength{\tabcolsep}{20pt}

