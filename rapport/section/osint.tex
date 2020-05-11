@@ -1,1 +1,81 @@
 \section{Choix de la cible et recherche d'informations}
+
+Dans cette section, nous allons justifier notre choix de cible, ainsi qu'exposer les différentes informations
+que nous avons pu récupérer à son sujet. 
+
+\subsection{Notre cible: entrepreneur et célébrité}
+
+Comme nous l'avons appris pendant le cours de SEN, le choix de la cible est crucial en social engineering.
+
+Avec des attaques de Spear Phishing, rien ne doit être laissé au hasard et des heures de travail sont nécessaires afin de construire un scénario
+crédible. Il faut donc que le jeu en vaille la chandelle, et que la cible ait de la valeur. 
+
+Pour notre attaque, nous avons choisi Alexandre Astier. Entrepreneur, acteur, scénariste, compositeur, cet homme aux multiples casquettes est selon nous une cible de choix. 
+Ses informations personnelles, son travail ainsi que sa fortune pourrait permettre à de veritables attaquants de s'enrichir en cas d'attaque.
+
+De plus, de par la qualité de son réseau professionnel, il pourrait également servir de vecteur d'attaque en post-exploitation.
+
+\subsection{Informations récoltées}
+
+\subsubsection{Identité}\footnote{\url{https://fr.wikipedia.org/wiki/Alexandre_Astier}}
+\begin{enumerate}
+\item Date de naissance: 16 juin 1974
+\item Métier : humoriste, acteur, réalisateur, scénariste et compositeur
+\item Religion : Agnostique (et n’aime pas les institutions religieuses)\footnote{\url{https://www.youtube.com/watch?v=SPGuaQIp7s0}}
+\item Hobbies : L’astronomie\footnote{\url{https://www.youtube.com/watch?v=LwkmqvmcyEw&feature=emb_title}}, la vie de famille, son métier..
+\subsubsection{Entrepreunariat}
+\item Gérant de l’entreprise Dies Irae\footnote{\url{https://www.societe.com/societe/dies-irae-453586547.html}}
+\begin{enumerate}
+\item Fondée en 2004
+\item Chiffre d’affaire 768 249 euros en 2014
+\item Adresse: 10 RUE JUIVERIE 69005 Lyon 5e Arrondissement
+\item APE: 5911C / Production de films pour le cinéma
+\item 1 ou 2 salariés
+\item Autre dirigeant : SEVILLA Joëlle
+\end{enumerate}
+\item Éditeur BD: Casterman\footnote{\url{https://www.casterman.com/Bande-dessinee/Auteurs/astier-alexandreFil}}
+\item Agence Artistique: Film Talents\footnote{\url{http://www.filmtalents.com/fiche.cfm/115_2-150100_alexandre_astier.html}}
+\begin{enumerate}
+\item Agent: Juanita Fellag
+\item juanita@filmtalents.com
+\item 01 85 34 14 54
+\end{enumerate}
+
+\subsubsection{Famille}
+\item Père : Lionel Astier
+\item Mère : Joelle Sevilla
+\item Belle-mère :  Josée Drevon
+\item Demi-frère: Simon Astier
+\item Compagne:  Anne-Gaelle Daval (ex), Luna Karys (twitter: Luna\_KAArys)
+\item Enfants (6) et comptes instagram \footnote{\url{https://www.instagram.com/stories/highlights/18074535850193060/}}:
+\begin{enumerate}
+\item Ariane Astier (ariane\_astier)
+\item Jeanne Astier (20 ans) (jeanne\_astier\_)
+\item Neil Astier (neilastier)
+\item Ethan Astier (ethanastier)
+\item James Astier (7 ans)
+\item Aaron Astier (2 ans)
+\end{enumerate}
+
+
+\subsubsection{Études}
+\item Musique au conservatoire et à l’American School of Modern Music de Paris promotion 1989
+\subsubsection{Autre}
+\item Différent Juridique avec CALT concernant le droit de l'oeuvre "Kaamelott" \footnote{\url{https://bit.ly/2YU4HBI}}
+
+\end{enumerate}
+
+\subsection{Utilité des informations récoltées}
+Grâce aux informations récoltées, nous pouvons dresser un portrait de M. Astier. 
+
+Très attaché à la notion de famille, il aime s'entourer de ces proches afin de mener à bien ces divers projets.
+Ces derniers, très nombreux et variés (film, BD, musique, spectacles) sont le fruit d'un homme intellectuellement très curieux et dynamique. 
+Certaines de ces oeuvres, en particulier l'univers étendu de "Kaamelott" sont le travail d'une décennie et semblent lui porter particulièrement à coeur et pourraient être utilisées dans une attaque.
+
+Souvent considéré comme "très intelligent" par le grand public, la naiveté ne fait pas parti de ses faiblesses.
+
+Il semble posséder quelques connaissances en informatique \footnote{\url{https://twitter.com/aastieroff/status/1049735438125162496}}\footnote{\url{https://twitter.com/AAstierOff/status/1046043266305667072}}, le rendant probablement plus sensibilisé aux diverses arnaques de bas-étage
+
+Peu présent sur les réseaux sociaux, il serait difficile de l'attaquer via ce vecteur vu la quantité titanesque de messages qu'il reçoit. (Son compte ne semble pas sous-traité)
+
+Pour conclure, il semble que son PoC se fasse principalement via son agente, Juanita Fellag ou via le courrier de fans à l'adresse de son entreprise. Il semble indiquer d'utiliser un de ces deux moyens de contact afin de lancer l'attaque.
