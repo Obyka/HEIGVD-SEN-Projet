@@ -294,3 +294,177 @@ soient assez élevé, ceci dans le but d'éviter les "faux" tokens, ou les "plac
   \item \url{https://tillsongalloway.com/finding-sensitive-information-on-github/index.html}
   \item \url{https://www.ndss-symposium.org/wp-content/uploads/2019/02/ndss2019_04B-3_Meli_paper.pdf}
 \end{enumerate}
+
+\subsection{Troisième outil: Recon-ng}
+
+\subsubsection{Présentation}
+Recon-ng est un peu le "Metasploit" de l'OSINT, il fonctionne de manière un peu similaire avec un système de module et de workspace tout comme "Metasploit",
+mais ces modules sont principalement centrés autour de la recherche d'informations.
+
+Recon-ng va se basé sur plein de service disponible en ligne comme Shodan par exemple, puis regrouper
+ces informations et les afficher.
+
+En plus de cela les modules sont écrits en Python et il est possible d'écrire des modules sois-mêmes, Il
+existe déjà 104 module par défaut.
+
+\subsubsection{Installation}
+L'outil est déjà installé par défaut sur Kali Linux, mais si vous souhaitez l'installer sur une autre
+distribution voilà la marche à suivre:
+
+1) Clonez le repository GitHub:
+
+\begin{lstlisting}{language=shell}
+  >  git clone https://github.com/lanmaster53/recon-ng.git
+\end{lstlisting}
+  
+2) Dans le dossier de Recon-ng, tapez:
+
+\begin{lstlisting}{language=shell}
+  >  pip install -r REQUIREMENTS
+\end{lstlisting}
+
+\subsubsection{Exemples d'utilisation}
+Pour le premier exemple, je vais installer le module BuiltWith\footnote{\url{https://pro.builtwith.com/}}, afin d'obtenir des informations
+sur les technologies utilisés par un site web:
+
+\begin{lstlisting}{language=shell}
+  >  marketplace install recon/domains-hosts/builtwith
+\end{lstlisting}
+
+Puis il faut ensuite ajouter sa clé API de BuiltWith dans Recon-ng:
+
+\begin{lstlisting}{language=shell}
+  >  keys add builtwith_api $API_KEY
+\end{lstlisting}
+
+Pour obtenir une clé d'API, on peut s'inscrire gratuitement sur le site et en obtenir une.
+
+Il faut ensuite ajouter un domaine, prenons le domaine de la HEIG-VD:
+
+\begin{lstlisting}{language=shell}
+  >  db insert domains
+\end{lstlisting}
+
+Puis entrez le nom de domaine et une note, tapez ensuite:
+
+\begin{lstlisting}{language=shell}
+  >  modules load recon/domains-hosts/builtwith
+\end{lstlisting}
+
+Afin de chargez le module, cela se passe comme Metasploit, il est aussi possible de paramétrez le
+module avec des options, tapez:
+
+\begin{lstlisting}{language=shell}
+  >  options list
+\end{lstlisting}
+
+Dans ce cas on ne va rien changer, et on va utiliser la commande "run", pour démarrer l'execution du module:
+
+\begin{lstlisting}{language=shell}
+  >  run
+\end{lstlisting}
+
+Différentes informations vont s'afficher, comme le serveur Web, ou les librairies JS et leur version: \\
+
+\includegraphics[scale=0.48]{images/SEN_Projet_Image019.png} \\
+
+\includegraphics[scale=0.48]{images/SEN_Projet_Image020.png}
+
+A noter que nous avons travailler dans le workspace par défaut, mais il est possible de créer un workspace en tapant:
+
+\begin{lstlisting}{language=shell}
+  >  workspaces create sen
+\end{lstlisting}
+
+Il est possible d'aller voir les informations de la base de données en tapant:
+
+\begin{lstlisting}{language=shell}
+  >  show $FRAMEWORK_OBJECT
+\end{lstlisting}
+
+Par exemple, pour voir les domaines et sous-domaines trouvé par les différents modules, on peut taper:
+
+\begin{lstlisting}{language=shell}
+  >  show hosts
+\end{lstlisting}
+
+Voyons un exemple d'utilisation avec un autre module.
+
+Nous allons d'abord devoir faire une resolution de nom de domaines sur tous nos hôtes, il existe un module pour cela:
+
+\begin{lstlisting}{language=shell}
+  >  marketplace install recon/hosts-hosts/resolve
+\end{lstlisting}
+
+\begin{lstlisting}{language=shell}
+  >  modules load recon/hosts-hosts/resolve
+\end{lstlisting}
+
+\begin{lstlisting}{language=shell}
+  >  run
+\end{lstlisting}
+
+Le module va traduire chaque domaine/sous-domaine en adresse IP: \\
+
+\includegraphics[scale=0.48]{images/SEN_Projet_Image021.png} \\
+
+On peut voir le résultat en tapant:
+
+\begin{lstlisting}{language=shell}
+  >  show hosts
+\end{lstlisting}
+
+\includegraphics[scale=0.48]{images/SEN_Projet_Image022.png}
+
+On va maintenant utiliser BinaryEdge \footnote{\url{https://app.binaryedge.io/services/query}}, afin de montrer les ports ouverts de toutes ces IPs.
+
+BinaryEdge est un site web assez similaire a Shodan, il montre des informations sur des hosts scanées à travers
+Internet, notamment les ports des services ouverts.
+
+\begin{lstlisting}{language=shell}
+  >  marketplace install recon/hosts-ports/binaryedge
+\end{lstlisting}
+
+\begin{lstlisting}{language=shell}
+  >  keys add binaryedge_api $BINARY_EDGE_KEY
+\end{lstlisting}
+
+Une clé d'API est disponible gratuitement sur le site de BinaryEdge une fois inscrit.
+
+\begin{lstlisting}{language=shell}
+  >  modules load recon/hosts-ports/binaryedge
+\end{lstlisting}
+
+Puis lancez en tapant:
+
+\begin{lstlisting}{language=shell}
+  >  run
+\end{lstlisting}
+
+\includegraphics[scale=0.48]{images/SEN_Projet_Image023.png}
+
+Pour cette partie nous avons dû supprimer des hosts de la DB de Recon-ng afin que cela marche,
+nous ne somme pas certains de la cause, c'est peut-être dû à une limitation dans le nombre de requête de l'API de Binary Edge.
+
+\subsubsection{Points forts/faibles}
+
+{\bfseries Points forts:} \\
+
+- Customisable à souhait
+
+- Automatisation possible
+
+- Beaucoup de modules disponibles
+
+- Similaire à Metasploit dans l'utilisation \\
+
+{\bfseries Points faibles:} \\
+
+- Documentation assez pauvre, pas d'exemple d'utilisation des modules
+
+\subsubsection{Sources}
+\begin{enumerate}
+  \item \url{https://github.com/lanmaster53/recon-ng/wiki/Getting-Started#installation}
+  \item \url{https://www.youtube.com/watch?v=0J6Auz88iTY&list=PLBf0hzazHTGPP2Nbt9QwSgG8jLnQIxi42&index=1}
+  \item \url{https://www.youtube.com/watch?v=Bx6D-VYz4no}
+\end{enumerate}
