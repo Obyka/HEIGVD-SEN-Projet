@@ -21,7 +21,7 @@ Nous pensons que cette lettre aboutira pour les raisons suivantes:
     \item En utilisant un nom connu du grand public (Anonymous), nous leur permettons de mieux appréhender la menace 
 \end{enumerate}
 
-Le deuxième étape consiste en l'exploitation du payload (reverse TCP metasploit).
+Le deuxième étape consiste en l'exploitation du payload (shell reverse TCP).
 Avec ce dernier, nous pourrions exfiltrer des documents, évoluer dans le réseau de l'agence (si Mme Fellag insère la clé), ou encore installer d'autres
 payload (malware, key loggers, etc.)
 
@@ -46,7 +46,7 @@ En conclusion, nous sommes satisfait de l'attaque mise en place et pensons que l
 \subsection{Résultats potentiellement obtenus}
 
 Afin de déterminer quels types de résultats nous obtenons, nous partons du principe que l'attaque a réussi.
-À l'aide d'un shell meterpreter ayant les droits systèmes sur la machine, nous pourrions par exemple récupérer:
+À l'aide d'un shell ayant les droits systèmes sur la machine, nous pourrions par exemple récupérer:
 \begin{enumerate}
     \item Des logins (mot de passe Windows, keyloggers, réutilisation de password..)
     \item Des documents confidentiels (avancement de ces travaux, communication privées)
