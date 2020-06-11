@@ -12,9 +12,13 @@ auquel il est connecté.
 Ce produit est aussi similaire au fameux “Rubber Ducky”, produit par la société Hak5, 
 il fournit les même possibilité mais il nécessite une configuration initial un peu plus poussé.
 
+Le Teensy est achetable sur Internet.
+
 \subsubsection{Installation}
 Pour commencer à développer sur le Teensy, il faut installer \href{https://www.arduino.cc/en/main/software}{l’IDE de Arduino}, 
 une fois l’installation effectuée il faut installer le \href{https://www.pjrc.com/teensy/teensyduino.html}{plugin Teensyduino}, qui va permettre de programmer sur le Teensy.
+
+L'IDE ainsi que le plugin sont disponible sur Linux/Mac OS/Windows.
 
 Pour créer les différents payloads d’attaque,nous avons utilisé le framework “Empire”, qui permet de faciliter 
 la création de payloads malveillant pour les Teensy.
@@ -151,6 +155,12 @@ Cela va désactiver Windows Defender et appuyer sur "Oui" au moment de l'apparit
 
 Il faut placer ce bout de code là avant l'exécution du payload Base64 d'Empire.
 
+\subsection{Conclusion}
+Le Teensy nous semble être un excellent vecteur d'infection, les gens ne se méfient pas vraiment
+des clés USB, ils pensent que s'ils n'ouvre aucun fichier, ils ne se feront pas infecté.
+
+De plus, il existe bon nombre de payloads écrit en Arduino pour le Teensy, disponible sur Internet.
+
 \subsubsection{Sources}
 \begin{enumerate}
     \item \url{https://null-byte.wonderhowto.com/how-to/use-powershell-empire-generating-stagers-for-post-exploitation-windows-hosts-0179939/}
@@ -165,7 +175,7 @@ Il faut placer ce bout de code là avant l'exécution du payload Base64 d'Empire
 
 \subsubsection{Présentation}
 
-Git-Hound est un outil qui permet de trouver des secrets sur des repository GitHub, des secrets comme des clés d'API AWS, 
+Git-Hound est un outil open-source disponible sur Linux, qui permet de trouver des secrets sur des repository GitHub, des secrets comme des clés d'API AWS, 
 ou des mot de passe de base de donnée, et encore pleins d'autre informations. 
 
 Pour fonctionner il se sert de l'API GitHub et il fouille parmi les résultats de recherche afin de détecter 
@@ -298,7 +308,7 @@ soient assez élevé, ceci dans le but d'éviter les "faux" tokens, ou les "plac
 \subsection{Troisième outil: Recon-ng}
 
 \subsubsection{Présentation}
-Recon-ng est un peu le "Metasploit" de l'OSINT, il fonctionne de manière un peu similaire avec un système de module et de workspace tout comme "Metasploit",
+Recon-ng est un peu le "Metasploit" de l'OSINT, il est open-source, disponible sur Linux, et il fonctionne de manière un peu similaire avec un système de module et de workspace tout comme "Metasploit",
 mais ces modules sont principalement centrés autour de la recherche d'informations.
 
 Recon-ng va se basé sur plein de service disponible en ligne comme Shodan par exemple, puis regrouper
@@ -461,6 +471,8 @@ nous ne somme pas certains de la cause, c'est peut-être dû à une limitation d
 {\bfseries Points faibles:} \\
 
 - Documentation assez pauvre, pas d'exemple d'utilisation des modules
+
+- L'export des résultats de certains modules vers un fichier ne semble pas être disponible.
 
 \subsubsection{Sources}
 \begin{enumerate}
